@@ -1,0 +1,25 @@
+<!--pages/index/index.wxml-->
+ 
+
+<view class="optClass">
+    <view class='optName'>附件</view> 
+    <view class='optContent' >可上传图片或视频</view>
+</view>
+<view class="optClass" style='padding:0 30rpx;flex-wrap:wrap;'>
+    <view class='uploadimgbox' wx:for="{{upImgArr}}" wx:key="item">
+        <image class='uploadimg' src='{{item.path}}' data-presrc="{{item.path}}" bindtap='previewImg' mode='aspectFill'></image>
+    </view>
+    <view class='uploadimgbox' wx:for="{{upVideoArr}}" wx:key="item">
+        <video class='uploadimg' src="{{item.tempFilePath}}"  controls ></video>
+       
+    </view>
+    
+    <view class='uploadimgbox'>
+        <image class='uploadbtn' bindtap='uploadFiles' src='./addimgsbtn.png'></image>
+    </view>
+    
+</view>
+
+<view class='subBtnBox'>
+    <button class='subBtn' type='button' bindtap='subFormData'>我要上传</button>
+</view>
