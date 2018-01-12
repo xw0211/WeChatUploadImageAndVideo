@@ -1,5 +1,5 @@
 
-var chooseImage = (t,data) =>{
+var chooseImage = t =>{
     wx.chooseImage({
         count: 9,
         sizeType: ['original', 'compressed'],
@@ -19,7 +19,7 @@ var chooseImage = (t,data) =>{
         },
     });
 }
-var chooseVideo = (t, data) => {
+var chooseVideo = t => {
     wx.chooseVideo({
         sourceType: ['album', 'camera'],
         maxDuration: 30,
