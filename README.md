@@ -1,7 +1,7 @@
 # WeChatUploadImageAndVideo
 微信小程序上传多张图片以及视频
   
-## 在需要上传文件的js中
+## 在需要上传页面的js中
 
 ```
 var upFiles = require('../../utils/upFiles.js')
