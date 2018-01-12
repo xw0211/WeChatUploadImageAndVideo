@@ -59,7 +59,7 @@ var getPathArr = t => {
 }
 
 /**
- * upFilesFun(this,object)
+ * upFilesFun(this,object,callback)
  * object:{
  *    url     ************   上传路径 (必传)
  *    filesPathsArr  ******  文件路径数组
@@ -70,6 +70,7 @@ var getPathArr = t => {
  *    failNumber     ******     失败个数
  *    completeNumber  ******    完成个数
  * }
+ * callback: 返回当前上传文件的进度 以及标示
  */
 
 var upFilesFun = (t, data, progress) =>{
