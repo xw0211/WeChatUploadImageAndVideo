@@ -2,6 +2,7 @@
 微信小程序上传多张图片以及视频
   
 ## 在需要上传页面的js中
+upFiles.js ------  ./client/utils/upFiles.js
 
 ```
 var upFiles = require('../../utils/upFiles.js')
