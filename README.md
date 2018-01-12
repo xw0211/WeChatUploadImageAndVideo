@@ -24,9 +24,9 @@ Page({
             //   console.log(res.tapIndex)
               let xindex = res.tapIndex;
               if (xindex == 0){
-                  upFiles.chooseImage(_this, e)
+                  upFiles.chooseImage(_this)
               } else if (xindex == 1){
-                  upFiles.chooseVideo(_this, e)
+                  upFiles.chooseVideo(_this)
               }
           },
           fail: function (res) {
