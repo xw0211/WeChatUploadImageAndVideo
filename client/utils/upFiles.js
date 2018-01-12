@@ -6,13 +6,11 @@ var chooseImage = t =>{
         sourceType: ['album', 'camera'],
         success: (res) => {
             var imgArr = t.data.upImgArr || [];
-            if (typeof(res.tempFilePaths) == 'object'){
-                let arr = res.tempFiles;
-                // console.log(res)
-                arr.map(function(v,i){
-                    imgArr.push(v)
-                })
-            }
+            let arr = res.tempFiles;
+            // console.log(res)
+            arr.map(function(v,i){
+                imgArr.push(v)
+            })
             t.setData({
                 upImgArr: imgArr
             })
