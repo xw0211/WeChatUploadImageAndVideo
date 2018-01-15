@@ -8,13 +8,20 @@
 <view class="optClass" style='padding:0 30rpx;flex-wrap:wrap;'>
     <view class='uploadimgbox' wx:for="{{upImgArr}}" wx:key="item">
         <image class='uploadimg' src='{{item.path}}' data-presrc="{{item.path}}" bindtap='previewImg' mode='aspectFill'></image>
+        <view class='progress' wx:if="{{upFilesProgress}}">
+            {{item.progress}}%
+        </view>
+        <view class='delbtn' data-index="{{index}}" data-type="image" bindtap='delFile'>X</view>
     </view>
     <view class='uploadimgbox' wx:for="{{upVideoArr}}" wx:key="item">
         <video class='uploadimg' src="{{item.tempFilePath}}"  controls ></video>
-       
+       <view class='progress' wx:if="{{upFilesProgress}}">
+            {{item.progress}}%
+        </view>
+        <view class='delbtn' data-index="{{index}}" data-type="video" bindtap='delFile'>X</view>
     </view>
     
-    <view class='uploadimgbox'>
+    <view class='uploadimgbox' wx:if="{{upFilesBtn}}">
         <image class='uploadbtn' bindtap='uploadFiles' src='./addimgsbtn.png'></image>
     </view>
     
@@ -23,3 +30,4 @@
 <view class='subBtnBox'>
     <button class='subBtn' type='button' bindtap='subFormData'>我要上传</button>
 </view>
+

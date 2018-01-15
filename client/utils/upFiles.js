@@ -1,7 +1,7 @@
 
-var chooseImage = t =>{
+var chooseImage = (t, count) =>{
     wx.chooseImage({
-        count: 9,
+        count: count,
         sizeType: ['original', 'compressed'],
         sourceType: ['album', 'camera'],
         success: (res) => {
@@ -9,15 +9,26 @@ var chooseImage = t =>{
             let arr = res.tempFiles;
             // console.log(res)
             arr.map(function(v,i){
+                v['progress'] = 0;
                 imgArr.push(v)
             })
             t.setData({
                 upImgArr: imgArr
             })
+
+            let upFilesArr = getPathArr(t);
+            if (upFilesArr.length > count-1) {
+                let imgArr = t.data.upImgArr;
+                let newimgArr = imgArr.slice(0, count)
+                t.setData({
+                    upFilesBtn: false,
+                    upImgArr: newimgArr
+                })
+            }
         },
     });
 }
-var chooseVideo = t => {
+var chooseVideo = (t,count) => {
     wx.chooseVideo({
         sourceType: ['album', 'camera'],
         maxDuration: 30,
@@ -31,10 +42,17 @@ var chooseVideo = t => {
             videoInfo['height'] = res.height;
             videoInfo['width'] = res.width;
             videoInfo['thumbTempFilePath'] = res.thumbTempFilePath;
+            videoInfo['progress'] = 0;
             videoArr.push(videoInfo)
             t.setData({
                 upVideoArr: videoArr
             })
+            let upFilesArr = getPathArr(t);
+            if (upFilesArr.length > count - 1) {
+                t.setData({
+                    upFilesBtn: false,
+                })
+            }
             // console.log(res)
         }
     })
@@ -57,7 +75,7 @@ var getPathArr = t => {
 }
 
 /**
- * upFilesFun(this,object,callback)
+ * upFilesFun(this,object)
  * object:{
  *    url     ************   上传路径 (必传)
  *    filesPathsArr  ******  文件路径数组
@@ -68,7 +86,6 @@ var getPathArr = t => {
  *    failNumber     ******     失败个数
  *    completeNumber  ******    完成个数
  * }
- * callback: 返回当前上传文件的进度 以及标示
  */
 
 var upFilesFun = (t, data, progress) =>{
@@ -129,4 +146,4 @@ var upFilesFun = (t, data, progress) =>{
     })
     
 }
-module.exports = { chooseImage, chooseVideo, upFilesFun}
+module.exports = { chooseImage, chooseVideo, upFilesFun, getPathArr}
