@@ -86,9 +86,11 @@ var getPathArr = t => {
  *    failNumber     ******     失败个数
  *    completeNumber  ******    完成个数
  * }
+ * progress:上传进度
+ * success：上传完成之后
  */
 
-var upFilesFun = (t, data, progress) =>{
+var upFilesFun = (t, data, progress, success) =>{
     let _this = t;
     let url = data.url; 
     let filesPath = data.filesPathsArr ? data.filesPathsArr : getPathArr(t);
@@ -108,6 +110,18 @@ var upFilesFun = (t, data, progress) =>{
             successNumber++;
             // console.log('success', successNumber)
             // console.log('success',res)
+            // 把后台返回的地址链接存到一个数组
+            let uploaded = t.data.uploadedPathArr || [];
+            var da = JSON.parse(res.data);
+            // console.log(da)
+            if (da.code == 1001) {
+                // ### 此处可能需要修改 以获取图片路径
+                uploaded.push(da.data)
+
+                t.setData({
+                    uploadedPathArr: uploaded
+                })
+            }
         },
         fail: function(res){
             failNumber++;
@@ -121,7 +135,11 @@ var upFilesFun = (t, data, progress) =>{
             if (startIndex == filesPath.length - 1 ){
                 // console.log('completeNumber', startIndex)
                 // console.log('over',res)
-
+                let sucPathArr = t.data.uploadedPathArr;
+                success(sucPathArr);
+                t.setData({
+                    uploadedPathArr: []
+                })
                 console.log('成功：' + successNumber + " 失败：" + failNumber)
             }else{
                 startIndex++;                
@@ -129,7 +147,7 @@ var upFilesFun = (t, data, progress) =>{
                 data.startIndex = startIndex;
                 data.successNumber = successNumber;
                 data.failNumber = failNumber;
-                upFilesFun(t, data, progress);
+                upFilesFun(t, data, progress, success);
             }
         }
     })

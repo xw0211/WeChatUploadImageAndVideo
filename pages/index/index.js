@@ -107,6 +107,7 @@ Page({
       upFiles.upFilesFun(_this, upData,function(res){
           if (res.index < upImgArr.length){
               upImgArr[res.index]['progress'] = res.progress
+              
               _this.setData({
                   upImgArr: upImgArr,
               })
@@ -118,6 +119,9 @@ Page({
               })
           }
         //   console.log(res)
+      }, function (arr) {
+          // success
+          console.log(arr)
       })
   }
 })
