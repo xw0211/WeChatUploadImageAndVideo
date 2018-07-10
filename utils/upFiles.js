@@ -92,16 +92,19 @@ var getPathArr = t => {
 
 var upFilesFun = (t, data, progress, success) =>{
     let _this = t;
-    let url = data.url; 
+    let url = data.url;
     let filesPath = data.filesPathsArr ? data.filesPathsArr : getPathArr(t);
     let name = data.name || 'file';
     let formData = data.formData || {};
     let startIndex = data.startIndex ? data.startIndex : 0;
     let successNumber = data.successNumber ? data.successNumber : 0;
     let failNumber = data.failNumber ? data.failNumber : 0;
-    
+    if (filesPath.length == 0) {
+      success([]);
+      return;
+    }
     const uploadTask = wx.uploadFile({
-        url: url, 
+        url: url,
         filePath: filesPath[startIndex],
         name: name,
         formData: formData,
@@ -131,7 +134,7 @@ var upFilesFun = (t, data, progress, success) =>{
             // console.log('fail', res)
         },
         complete: function(res){
-            
+
             if (startIndex == filesPath.length - 1 ){
                 // console.log('completeNumber', startIndex)
                 // console.log('over',res)
@@ -142,7 +145,7 @@ var upFilesFun = (t, data, progress, success) =>{
                 })
                 console.log('成功：' + successNumber + " 失败：" + failNumber)
             }else{
-                startIndex++;                
+                startIndex++;
                 // console.log(startIndex)
                 data.startIndex = startIndex;
                 data.successNumber = successNumber;
@@ -162,6 +165,6 @@ var upFilesFun = (t, data, progress, success) =>{
         // console.log('已经上传的数据长度', res.totalBytesSent)
         // console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
     })
-    
+
 }
 module.exports = { chooseImage, chooseVideo, upFilesFun, getPathArr}
